@@ -15,6 +15,21 @@ x = "Hello"
 
 The same variable can refer to objects of different types during execution.
 
+### Common Python Data Types
+
+| Name | Type | Description | Example |
+|---|---|---|---|
+| Integers | `int` | Whole numbers | `3`, `300`, `200` |
+| Floating point | `float` | Numbers with a decimal point | `2.3`, `4.6`, `100.0` |
+| Strings | `str` | Ordered sequence of characters | `"hello"`, `"Sammy"`, `"2000"` |
+| Lists | `list` | Ordered sequence of objects | `[10, "hello", 200.3]` |
+| Dictionaries | `dict` | Key-value pairs | `{"mykey": "value", "name": "Frankie"}` |
+| Tuples | `tuple` | Ordered immutable sequence | `(10, "hello", 200.3)` |
+| Sets | `set` | Collection of unique elements | `{"a", "b"}` |
+| Booleans | `bool` | Logical value | `True`, `False` |
+
+---
+
 ### `type()`
 
 Used to check the data type of an object.
@@ -57,7 +72,7 @@ print("Hello World")
 
 ## 2. Strings
 
-A string is a sequence of characters.
+A string is an **ordered sequence of characters**.
 
 ```python
 x = "Hello World"
@@ -137,33 +152,162 @@ print(x.split("i"))
 
 The `.format()` method is used to insert values into a string.
 
-```python
-name = "Suhas"
-age = 30
-
-print("My name is {} and I am {} years old.".format(name, age))
-```
-
-You can also use positional indexes:
+### Basic Replacement
 
 ```python
-print("My name is {0} and I am {1} years old.".format(name, age))
+print("This is a string {}".format("INSERTED"))
 ```
+
+Output:
+
+```text
+This is a string INSERTED
+```
+
+### Positional Arguments
+
+You can use indexes inside `{}` to specify which argument should be inserted.
+
+```python
+print("The {0} {0} {0}".format("fox", "brown", "quick"))
+```
+
+Output:
+
+```text
+The fox fox fox
+```
+
+The same index refers to the same value each time.
+
+### Keyword Arguments
+
+You can provide names for the values and reference those names inside the string.
+
+```python
+print("The {q} {b} {f}".format(
+    f="fox",
+    b="brown",
+    q="quick"
+))
+```
+
+Output:
+
+```text
+The quick brown fox
+```
+
+### Using Variables
+
+```python
+name = "Jose"
+
+print("Hello, his name is {}".format(name))
+```
+
+Output:
+
+```text
+Hello, his name is Jose
+```
+
+### Float Formatting
+
+Float formatting follows this pattern:
+
+```text
+{value:width.precisionf}
+```
+
+Example:
+
+```python
+result = 100 / 777
+
+print(result)
+```
+
+Output:
+
+```text
+0.1287001287001287
+```
+
+To limit the number of decimal places:
+
+```python
+print("The result was {r:10.3f}".format(r=result))
+```
+
+Output:
+
+```text
+The result was      0.129
+```
+
+Here:
+
+- `r` is the variable.
+- `10` is the field width.
+- `.3f` displays the number with **3 digits after the decimal point**.
+- `f` indicates floating-point formatting.
 
 ---
 
 ## 4. F-String Formatting
 
-F-strings provide a simpler way to insert variables into strings.
+F-strings provide a simple way to insert variables and expressions directly into a string.
+
+Use the `f` before the opening quote:
 
 ```python
-name = "Suhas"
+name = "Jose"
+
+print(f"Hello, his name is {name}")
+```
+
+Output:
+
+```text
+Hello, his name is Jose
+```
+
+### Why Use F-Strings?
+
+F-strings are generally easier to read than `.format()` because the variable is placed directly inside `{}`.
+
+```python
+name = "Jose"
 age = 30
 
 print(f"My name is {name} and I am {age} years old.")
 ```
 
-F-strings are commonly preferred in modern Python because they are readable and convenient.
+You can also include expressions:
+
+```python
+a = 10
+b = 20
+
+print(f"The total is {a + b}")
+```
+
+### Float Formatting with F-Strings
+
+The same formatting rules can be used with f-strings:
+
+```python
+result = 100 / 777
+
+print(f"The result was {result:10.3f}")
+```
+
+Output:
+
+```text
+The result was      0.129
+```
 
 ---
 
@@ -171,42 +315,57 @@ F-strings are commonly preferred in modern Python because they are readable and 
 
 A list is an **ordered sequence** that can hold different types of objects.
 
-Lists support:
-
-- Indexing
-- Slicing
-- Reassignment
-- Duplicate values
-- Different data types
-
 ```python
-new_list = [1, "Hello", 3.14, True]
+my_list = [1, 2, 3]
 ```
 
-### Indexing
+Lists can contain different data types:
 
 ```python
-new_list[0]
-new_list[1]
+my_list = ["STRING", 100, 23.2]
 ```
 
-### Slicing
+### Length of a List
 
 ```python
-new_list[:2]
-new_list[1:]
+print(len(my_list))
+```
+
+Output:
+
+```text
+3
+```
+
+### List Indexing
+
+```python
+my_list[0]
+my_list[1]
+my_list[2]
+```
+
+### List Slicing
+
+Lists support the same slicing syntax as strings:
+
+```python
+my_list[:2]
+my_list[1:]
+my_list[::2]
+my_list[::-1]
 ```
 
 ### Lists Are Mutable
 
-Unlike strings, individual list elements can be changed.
+Unlike strings, list elements can be reassigned.
 
 ```python
-new_list = [1, 2, 3]
+my_list = [1, 2, 3]
 
-new_list[0] = 100
+my_list[0] = 100
 
-print(new_list)
+print(my_list)
 # [100, 2, 3]
 ```
 
@@ -217,23 +376,23 @@ print(new_list)
 Adds an item to the end of the list.
 
 ```python
-new_list.append(4)
+my_list.append(4)
 ```
 
 #### `pop()`
 
 Removes and returns an item.
 
-By default, it removes the **last item**.
+By default, it removes the **last item**:
 
 ```python
-new_list.pop()
+my_list.pop()
 ```
 
-You can also provide an index:
+You can provide an index:
 
 ```python
-new_list.pop(1)
+my_list.pop(1)
 ```
 
 #### `sort()`
@@ -241,17 +400,17 @@ new_list.pop(1)
 Sorts a list in place.
 
 ```python
-new_list = [3, 1, 2]
-new_list.sort()
+my_list = [3, 1, 2]
+my_list.sort()
 
-print(new_list)
+print(my_list)
 # [1, 2, 3]
 ```
 
-Important: `sort()` returns `None`.
+`sort()` modifies the original list and returns `None`.
 
 ```python
-result = new_list.sort()
+result = my_list.sort()
 print(result)
 # None
 ```
@@ -261,7 +420,7 @@ print(result)
 Reverses the list in place.
 
 ```python
-new_list.reverse()
+my_list.reverse()
 ```
 
 ---
@@ -277,40 +436,87 @@ my_dict = {
 }
 ```
 
-A dictionary allows you to retrieve values using keys instead of numeric indexes.
+### Accessing Values
+
+Use the key to retrieve its associated value.
 
 ```python
-person = {
-    "name": "Suhas",
-    "age": 30
+print(my_dict["key1"])
+```
+
+### Adding a New Key-Value Pair
+
+```python
+d = {
+    "k1": 100,
+    "k2": 200
 }
 
-print(person["name"])
-# Suhas
+d["k3"] = 300
+
+print(d)
+# {'k1': 100, 'k2': 200, 'k3': 300}
 ```
+
+### Updating an Existing Value
+
+```python
+d["k1"] = "NEW VALUE"
+```
+
+Dictionaries are mutable, so existing values can be changed.
+
+### `keys()`
+
+Returns the dictionary's keys.
+
+```python
+d.keys()
+```
+
+Example result:
+
+```text
+dict_keys(['k1', 'k2', 'k3'])
+```
+
+### `values()`
+
+Returns the dictionary's values.
+
+```python
+d.values()
+```
+
+Example result:
+
+```text
+dict_values([100, 200, 300])
+```
+
+### `items()`
+
+Returns the dictionary's key-value pairs.
+
+```python
+d.items()
+```
+
+You can use it when you need both the key and value.
+
+### `get()`
+
+Another way to retrieve a value:
+
+```python
+d.get("k1")
+```
+
+Unlike `d["missing_key"]`, `get()` returns `None` by default if the key does not exist.
 
 ### Important Point
 
-Modern Python dictionaries preserve **insertion order**. They are not unordered in the sense that the order is lost, although they are still conceptually mappings rather than sequences indexed by position.
-
-### Adding or Updating Values
-
-```python
-person["city"] = "Pune"
-person["age"] = 31
-```
-
-### Getting a Value
-
-```python
-person["name"]
-```
-
-You can also use:
-
-```python
-person.get("name")
-```
+Modern Python dictionaries preserve **insertion order**. They are mappings based on keys rather than sequences based on numeric indexes.
 
 ---
 
@@ -318,30 +524,54 @@ person.get("name")
 
 Tuples are similar to lists, but they are **immutable**.
 
+```python
+t = ("a", "a", "b")
+```
+
 Once an element is stored in a tuple, it cannot be reassigned.
 
 ```python
-my_tuple = (1, 2, 3)
+# t[0] = "x"    # TypeError
 ```
 
-This is not allowed:
+### `count()`
+
+Counts how many times a value occurs.
 
 ```python
-my_tuple[0] = 100
-# TypeError
+t.count("a")
 ```
 
-### Tuple Methods
+Output:
 
-Tuples have two commonly available methods:
+```text
+2
+```
+
+### `index()`
+
+Returns the index of the first occurrence of a value.
 
 ```python
-my_tuple.count(2)
-my_tuple.index(2)
+t.index("a")
 ```
 
-- `count()` — counts how many times a value occurs.
-- `index()` — returns the index of the first occurrence.
+For the tuple:
+
+```python
+t = ("a", "a", "b")
+```
+
+the result is:
+
+```text
+0
+```
+
+Tuples have two commonly used methods:
+
+- `count()`
+- `index()`
 
 ---
 
@@ -350,30 +580,58 @@ my_tuple.index(2)
 Sets are collections of **unique elements**.
 
 ```python
-my_set = {1, 2, 3}
+myset = set()
 ```
 
-Duplicate values are automatically removed:
+### Adding Elements
+
+Use `add()`:
 
 ```python
-my_set = {1, 2, 2, 3, 3}
+myset.add(1)
 
-print(my_set)
-# {1, 2, 3}
+print(myset)
+# {1}
 ```
 
-Sets are useful when you need to:
+### Removing Duplicates
 
-- Remove duplicates
-- Test membership
-- Perform mathematical set operations
-
-Example:
+A set can be created from a list to remove duplicate values.
 
 ```python
-my_set.add(4)
-my_set.remove(2)
+mylist = [1, 1, 1, 1, 2, 2, 2, 3, 3, 3]
+
+print(set(mylist))
 ```
+
+Output:
+
+```text
+{1, 2, 3}
+```
+
+### Important Properties
+
+- Sets contain unique values.
+- Sets do not support indexing like lists.
+- Sets are useful for removing duplicates.
+- Use `set()` to create an empty set.
+
+Important:
+
+```python
+myset = {}
+```
+
+creates an **empty dictionary**, not an empty set.
+
+Use:
+
+```python
+myset = set()
+```
+
+to create an empty set.
 
 ---
 
@@ -416,7 +674,7 @@ myfile.read()
 
 After reading a file, the file pointer is at the end.
 
-Use `seek(0)` to move it back to the beginning.
+Use `seek(0)` to move it back to the beginning:
 
 ```python
 myfile.seek(0)
@@ -446,33 +704,67 @@ with open("myfile.txt") as my_new_file:
 print(contents)
 ```
 
-### Explicit Read Mode
+---
+
+### File Modes
+
+The `mode` argument determines what you can do with the file.
+
+| Mode | Meaning |
+|---|---|
+| `r` | Read only |
+| `w` | Write only; overwrites an existing file or creates a new one |
+| `a` | Append; adds data to the end of the file |
+| `r+` | Reading and writing |
+| `w+` | Writing and reading; overwrites an existing file or creates a new one |
+
+### Read Mode
 
 ```python
-with open("myfile.txt", mode="r") as myfile:
-    contents = myfile.read()
+with open("my_new_file.txt", mode="r") as f:
+    contents = f.read()
+
+print(contents)
 ```
 
-`mode="r"` means **read**.
-
-### Writing to a File
+### Write Mode
 
 ```python
-a = open("test.txt", mode="w")
-a.write("Hello World")
-a.close()
+with open("test.txt", mode="w") as f:
+    f.write("Hello World")
 ```
 
-`mode="w"` means **write**.
+**Warning:** `w` can overwrite the existing contents of a file.
 
-Be careful: writing with `w` can overwrite an existing file.
+---
 
-A safer modern pattern is:
+### Append Mode
+
+Use `a` when you want to add content without replacing existing content.
 
 ```python
-with open("test.txt", mode="w") as file:
-    file.write("Hello World")
+with open("my_new_file.txt", mode="a") as f:
+    f.write("\nFOUR ON FOURTH")
 ```
+
+If the file previously contained:
+
+```text
+ONE ON FIRST
+TWO ON SECOND
+THREE ON THIRD
+```
+
+after the append operation it will contain:
+
+```text
+ONE ON FIRST
+TWO ON SECOND
+THREE ON THIRD
+FOUR ON FOURTH
+```
+
+This is useful when you want to add new data to an existing file.
 
 ---
 
